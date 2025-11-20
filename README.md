@@ -1,73 +1,56 @@
-# React + TypeScript + Vite
+# 3D Interactive Engine Simulation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A high-fidelity, interactive 3D simulation of various internal combustion and electric engines, built with React, Three.js (React Three Fiber), and TypeScript.
 
-Currently, two official plugins are available:
+![Engine Simulation Screenshot](./public/screenshot.png) *Add a screenshot here later*
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+### 🏎️ Engine Types
+*   **4-Stroke Piston Engine (Otto Cycle):** detailed simulation of the intake, compression, power, and exhaust strokes with realistic thermodynamics.
+*   **Wankel Rotary Engine:** accurate mathematical model of the epitrochoid housing and Reuleaux triangle rotor geometry.
+*   **V8 Engine (Crossplane):** 8-cylinder configuration with a realistic 1-8-4-3-6-5-7-2 firing order and inertial force calculations.
+*   **Electric Motor (3-Phase AC/IPM):** simulation of Field Oriented Control (FOC), flux vectors, and thermal heating.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🔬 Physics & "PhD Mode"
+This isn't just an animation; it's a physics simulation running at 60Hz.
+*   **Thermodynamics:** Adiabatic compression, Wiebe function combustion heat release, and variable specific heat ratio ($\gamma$).
+*   **Fluid Dynamics:** Volumetric efficiency modeling based on piston speed and choking limits.
+*   **Electromagnetism:** Real-time calculation of $I_d/I_q$ currents, Back EMF, and stator resistance thermal degradation.
+*   **Telemetry:** Live graphs for PV Loops (Pressure-Volume), Torque, Temperature, and Vector Scopes.
 
-## Expanding the ESLint configuration
+### 🛠️ Tech Stack
+*   **Frontend:** React 18, Vite
+*   **3D Graphics:** Three.js, @react-three/fiber, @react-three/drei
+*   **Styling:** Tailwind CSS
+*   **Audio:** Web Audio API (Procedural engine sound synthesis)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/yourusername/3d-engine-sim.git
+    cd 3d-engine-sim
+    ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+3.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+4.  Open `http://localhost:5173` in your browser.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Controls
+*   **Engine Switcher:** Toggle between Piston, Rotary, Electric, and V8 modes top-left.
+*   **RPM Slider:** Drag to rev the engine.
+*   **Pause/Manual:** Pause the simulation to manually scrub through the engine cycle (great for learning valve timing).
+*   **Telemetry:** Click the "Heartbeat" icon top-right to view live physics data.
+*   **Visibility:** Toggle the "Visible" eye icon to show/hide the engine block/housing.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## License
+MIT
